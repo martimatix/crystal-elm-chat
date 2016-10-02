@@ -1,0 +1,12 @@
+name: kemal-chat-elm
+version: 0.1.0
+
+dependencies:
+  kemal:
+    github: sdogruyol/kemal
+    branch: master
+
+authors:
+  -  Mario Martinez
+
+license: MIT
