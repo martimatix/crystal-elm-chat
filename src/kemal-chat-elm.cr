@@ -2,10 +2,6 @@ require "kemal"
 
 SOCKETS = [] of HTTP::WebSocket
 
-# get "/" do
-#   render "views/index.ecr"
-# end
-
 ws "/chat" do |socket|
   # Add the client to SOCKETS list
   SOCKETS << socket
