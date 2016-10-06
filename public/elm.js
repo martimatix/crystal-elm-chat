@@ -9003,21 +9003,22 @@ var _user$project$Main$enterNameView = function (model) {
 		_elm_lang$core$Native_List.fromArray(
 			[
 				A2(
-				_elm_lang$html$Html$p,
+				_elm_lang$html$Html$label,
 				_elm_lang$core$Native_List.fromArray(
 					[]),
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html$text('Enter your username for the chat')
+						_elm_lang$html$Html$text('Enter your username for this chat')
 					])),
 				A2(
 				_elm_lang$html$Html$input,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html_Attributes$placeholder('username'),
 						_elm_lang$html$Html_Attributes$autofocus(true),
 						_elm_lang$html$Html_Attributes$value(model.username),
-						_elm_lang$html$Html_Events$onInput(_user$project$Main$UpdateUsername)
+						_elm_lang$html$Html_Events$onInput(_user$project$Main$UpdateUsername),
+						_elm_lang$html$Html_Attributes$class('u-full-width'),
+						_elm_lang$html$Html_Attributes$type$('text')
 					]),
 				_elm_lang$core$Native_List.fromArray(
 					[])),
@@ -9025,7 +9026,8 @@ var _user$project$Main$enterNameView = function (model) {
 				_elm_lang$html$Html$button,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html_Events$onClick(_user$project$Main$SelectUsername)
+						_elm_lang$html$Html_Events$onClick(_user$project$Main$SelectUsername),
+						_elm_lang$html$Html_Attributes$class('button-primary')
 					]),
 				_elm_lang$core$Native_List.fromArray(
 					[
@@ -9057,10 +9059,16 @@ var _user$project$Main$chatView = function (model) {
 				_elm_lang$html$Html$input,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html_Attributes$placeholder('message...'),
+						_elm_lang$html$Html_Attributes$placeholder('say something...'),
 						_elm_lang$html$Html_Attributes$autofocus(true),
 						_elm_lang$html$Html_Attributes$value(model.userMessage),
-						_elm_lang$html$Html_Events$onInput(_user$project$Main$UpdateUserMessage)
+						_elm_lang$html$Html_Events$onInput(_user$project$Main$UpdateUserMessage),
+						_elm_lang$html$Html_Attributes$type$('text'),
+						_elm_lang$html$Html_Attributes$style(
+						_elm_lang$core$Native_List.fromArray(
+							[
+								{ctor: '_Tuple2', _0: 'margin-right', _1: '0.5em'}
+							]))
 					]),
 				_elm_lang$core$Native_List.fromArray(
 					[])),
@@ -9068,7 +9076,8 @@ var _user$project$Main$chatView = function (model) {
 				_elm_lang$html$Html$button,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html_Events$onClick(_user$project$Main$PostChatMessage)
+						_elm_lang$html$Html_Events$onClick(_user$project$Main$PostChatMessage),
+						_elm_lang$html$Html_Attributes$class('button-primary')
 					]),
 				_elm_lang$core$Native_List.fromArray(
 					[
@@ -9084,16 +9093,18 @@ var _user$project$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
-			[]),
+			[
+				_elm_lang$html$Html_Attributes$class('container')
+			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
 				A2(
-				_elm_lang$html$Html$p,
+				_elm_lang$html$Html$h3,
 				_elm_lang$core$Native_List.fromArray(
 					[]),
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html$text('World\'s Greatest Chat Room')
+						_elm_lang$html$Html$text('Awesome Chat Room')
 					])),
 				_user$project$Main$viewSelect(model)
 			]));

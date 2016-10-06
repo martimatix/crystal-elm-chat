@@ -78,8 +78,8 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-  div []
-    [ p [] [ text "World's Greatest Chat Room"]
+  div [ class "container" ]
+    [ h3 [] [ text "Awesome Chat Room"]
     , viewSelect model
     ]
 
@@ -95,25 +95,32 @@ viewSelect model =
 enterNameView : Model -> Html Msg
 enterNameView model =
   div []
-    [ p [] [ text "Enter your username for the chat"]
-    , input [ placeholder "username"
-            , autofocus True
+    [ label [] [ text "Enter your username for this chat"]
+    , input [ autofocus True
             , value model.username
             , onInput UpdateUsername
+            , class "u-full-width"
+            , type' "text"
             ] []
-    , button [ onClick SelectUsername ] [ text "Submit" ]
+    , button [ onClick SelectUsername
+             , class "button-primary"
+             ] [ text "Submit" ]
   ]
 
 
 chatView : Model -> Html Msg
 chatView model =
   div []
-    [ input [ placeholder "message..."
+    [ input [ placeholder "say something..."
             , autofocus True
             , value model.userMessage
             , onInput UpdateUserMessage
+            , type' "text"
+            , style [ ("margin-right", "0.5em") ]
             ] []
-    , button [ onClick PostChatMessage ] [ text "Submit" ]
+    , button [ onClick PostChatMessage
+             , class "button-primary"
+             ] [ text "Submit" ]
     , displayChatMessages model.chatMessages
   ]
 
