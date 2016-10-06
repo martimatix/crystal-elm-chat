@@ -8886,7 +8886,7 @@ _elm_lang$core$Native_Platform.effectManagers['WebSocket'] = {pkg: 'elm-lang/web
 var _user$project$Main$chatHost = function (websocketHost) {
 	return A2(
 		_elm_lang$core$Basics_ops['++'],
-		'ws://',
+		'wss://',
 		A2(_elm_lang$core$Basics_ops['++'], websocketHost, '/chat'));
 };
 var _user$project$Main$submitChatMessage = F3(

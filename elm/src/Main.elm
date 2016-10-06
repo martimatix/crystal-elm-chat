@@ -146,4 +146,4 @@ submitChatMessage username message host =
 
 chatHost : String -> String
 chatHost websocketHost =
-  "ws://" ++ websocketHost ++ "/chat"
+  "wss://" ++ websocketHost ++ "/chat"
