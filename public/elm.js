@@ -8883,17 +8883,11 @@ var _elm_lang$websocket$WebSocket$onSelfMsg = F3(
 	});
 _elm_lang$core$Native_Platform.effectManagers['WebSocket'] = {pkg: 'elm-lang/websocket', init: _elm_lang$websocket$WebSocket$init, onEffects: _elm_lang$websocket$WebSocket$onEffects, onSelfMsg: _elm_lang$websocket$WebSocket$onSelfMsg, tag: 'fx', cmdMap: _elm_lang$websocket$WebSocket$cmdMap, subMap: _elm_lang$websocket$WebSocket$subMap};
 
-var _user$project$Main$chatHost = function (websocketHost) {
-	return A2(
-		_elm_lang$core$Basics_ops['++'],
-		'wss://',
-		A2(_elm_lang$core$Basics_ops['++'], websocketHost, '/chat'));
-};
 var _user$project$Main$submitChatMessage = F3(
-	function (username, message, host) {
+	function (username, message, websocketHost) {
 		return A2(
 			_elm_lang$websocket$WebSocket$send,
-			_user$project$Main$chatHost(host),
+			websocketHost,
 			A2(
 				_elm_lang$core$Basics_ops['++'],
 				username,
@@ -9039,10 +9033,7 @@ var _user$project$Main$NewChatMessage = function (a) {
 	return {ctor: 'NewChatMessage', _0: a};
 };
 var _user$project$Main$subscriptions = function (model) {
-	return A2(
-		_elm_lang$websocket$WebSocket$listen,
-		_user$project$Main$chatHost(model.websocketHost),
-		_user$project$Main$NewChatMessage);
+	return A2(_elm_lang$websocket$WebSocket$listen, model.websocketHost, _user$project$Main$NewChatMessage);
 };
 var _user$project$Main$UpdateUserMessage = function (a) {
 	return {ctor: 'UpdateUserMessage', _0: a};

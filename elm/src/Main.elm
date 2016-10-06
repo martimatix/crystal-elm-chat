@@ -135,15 +135,11 @@ displayChatMessages chatMessages =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  WebSocket.listen (chatHost model.websocketHost) NewChatMessage
+  WebSocket.listen model.websocketHost NewChatMessage
 
 
 -- HELPERS
 
 submitChatMessage : String -> String -> String -> Cmd Msg
-submitChatMessage username message host =
-  WebSocket.send (chatHost host) (username ++ ": " ++ message)
-
-chatHost : String -> String
-chatHost websocketHost =
-  "wss://" ++ websocketHost ++ "/chat"
+submitChatMessage username message websocketHost =
+  WebSocket.send websocketHost (username ++ ": " ++ message)

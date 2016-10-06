@@ -10,8 +10,11 @@
 </head>
 <body>
   <script type="text/javascript">
+    const websocketProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const websocketHost = `${websocketProtocol}//${location.host}/chat`;
+
     Elm.Main.fullscreen({
-      websocketHost: location.host
+      websocketHost: websocketHost
     });
   </script>
 </body>
