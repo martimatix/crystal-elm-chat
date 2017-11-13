@@ -1,18 +1,20 @@
 # kemal-chat-elm
 
-TODO: Write a description here
-
 ## Installation
 
-
-TODO: Write installation instructions here
+```
+$ shards install
+$ cd elm
+$ elm package install
+$ elm make src/Main.elm --output ../public/elm.js
+```
 
 
 ## Usage
 
-
-
-TODO: Write usage instructions here
+```
+$ crystal run src/crecto_test.cr
+```
 
 ## Development
 
