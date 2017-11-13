@@ -15,6 +15,7 @@ $ elm make src/Main.elm --output ../public/elm.js
 ```
 $ crystal run src/kemal-chat-elm.cr
 ```
+
 Open the browser at (http://localhost:3000/index.html)
 
 ## Development
