@@ -1,145 +1,169 @@
+module Main exposing (..)
+
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import WebSocket
 import List
 
-main : Program Flags
+
 main =
-  Html.programWithFlags
-  { init = init
-  , view = view
-  , update = update
-  , subscriptions = subscriptions
-  }
+    Html.programWithFlags
+        { init = init
+        , view = view
+        , update = update
+        , subscriptions = subscriptions
+        }
+
 
 type alias Flags =
-  { websocketHost : String }
+    { websocketHost : String }
 
 
- -- MODEL
+
+-- MODEL
 
 
 type alias Model =
-  { chatMessages : List String
-  , userMessage : String
-  , username : String
-  , usernameSelected : Bool
-  , websocketHost: String
-  }
+    { chatMessages : List String
+    , userMessage : String
+    , username : String
+    , usernameSelected : Bool
+    , websocketHost : String
+    }
 
 
-init : Flags -> (Model, Cmd Msg)
+init : Flags -> ( Model, Cmd Msg )
 init flags =
-  ( Model [] "" "" False flags.websocketHost
-  , Cmd.none
-  )
+    ( Model [] "" "" False flags.websocketHost
+    , Cmd.none
+    )
+
 
 
 -- UPDATE
 
 
 type Msg
-  = PostChatMessage
-  | UpdateUserMessage String
-  | NewChatMessage String
-  | UpdateUsername String
-  | SelectUsername
+    = PostChatMessage
+    | UpdateUserMessage String
+    | NewChatMessage String
+    | UpdateUsername String
+    | SelectUsername
 
-update : Msg -> Model -> (Model, Cmd Msg)
+
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-  case msg of
-    PostChatMessage ->
-      let
-        message = model.userMessage
-        username = model.username
-        host = model.websocketHost
-      in
-        { model | userMessage = "" } ! [ submitChatMessage username message host ]
+    case msg of
+        PostChatMessage ->
+            let
+                message =
+                    model.userMessage
 
-    UpdateUserMessage message ->
-      { model | userMessage = message } ! []
+                username =
+                    model.username
 
-    NewChatMessage message  ->
-      let
-        messages = message :: model.chatMessages
-      in
-        { model | chatMessages = messages } ! []
+                host =
+                    model.websocketHost
+            in
+                { model | userMessage = "" } ! [ submitChatMessage username message host ]
 
-    UpdateUsername username ->
-        { model | username = username } ! []
+        UpdateUserMessage message ->
+            { model | userMessage = message } ! []
 
-    SelectUsername ->
-        { model | usernameSelected = True } ! []
+        NewChatMessage message ->
+            let
+                messages =
+                    message :: model.chatMessages
+            in
+                { model | chatMessages = messages } ! []
+
+        UpdateUsername username ->
+            { model | username = username } ! []
+
+        SelectUsername ->
+            { model | usernameSelected = True } ! []
+
+
 
 -- VIEW
 
 
 view : Model -> Html Msg
 view model =
-  div [ class "container" ]
-    [ h3 [] [ text "Awesome Chat Room"]
-    , viewSelect model
-    ]
+    div [ class "container" ]
+        [ h3 [] [ text "Awesome Chat Room" ]
+        , viewSelect model
+        ]
 
 
 viewSelect : Model -> Html Msg
 viewSelect model =
     if model.usernameSelected then
-      chatView model
-
+        chatView model
     else
-      enterNameView model
+        enterNameView model
+
 
 enterNameView : Model -> Html Msg
 enterNameView model =
-  div []
-    [ label [] [ text "Enter your username for this chat"]
-    , input [ autofocus True
+    div []
+        [ label [] [ text "Enter your username for this chat" ]
+        , input
+            [ autofocus True
             , value model.username
             , onInput UpdateUsername
             , class "u-full-width"
-            , type' "text"
-            ] []
-    , button [ onClick SelectUsername
-             , class "button-primary"
-             ] [ text "Submit" ]
-  ]
+            , type_ "text"
+            ]
+            []
+        , button
+            [ onClick SelectUsername
+            , class "button-primary"
+            ]
+            [ text "Submit" ]
+        ]
 
 
 chatView : Model -> Html Msg
 chatView model =
-  div []
-    [ input [ placeholder "say something..."
+    div []
+        [ input
+            [ placeholder "say something..."
             , autofocus True
             , value model.userMessage
             , onInput UpdateUserMessage
-            , type' "text"
-            , style [ ("margin-right", "0.5em") ]
-            ] []
-    , button [ onClick PostChatMessage
-             , class "button-primary"
-             ] [ text "Submit" ]
-    , displayChatMessages model.chatMessages
-  ]
+            , type_ "text"
+            , style [ ( "margin-right", "0.5em" ) ]
+            ]
+            []
+        , button
+            [ onClick PostChatMessage
+            , class "button-primary"
+            ]
+            [ text "Submit" ]
+        , displayChatMessages model.chatMessages
+        ]
 
 
 displayChatMessages : List String -> Html a
 displayChatMessages chatMessages =
-  div [] (List.map ( \x -> div [] [ text x ] ) chatMessages)
+    div [] (List.map (\x -> div [] [ text x ]) chatMessages)
 
 
- -- SUBSCRIPTIONS
+
+-- SUBSCRIPTIONS
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  WebSocket.listen model.websocketHost NewChatMessage
+    WebSocket.listen model.websocketHost NewChatMessage
+
 
 
 -- HELPERS
 
+
 submitChatMessage : String -> String -> String -> Cmd Msg
 submitChatMessage username message websocketHost =
-  WebSocket.send websocketHost (username ++ ": " ++ message)
+    WebSocket.send websocketHost (username ++ ": " ++ message)
